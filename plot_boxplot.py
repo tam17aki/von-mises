@@ -33,8 +33,8 @@ from omegaconf import DictConfig
 def main(cfg: DictConfig):
     """Plot boxplot of scores."""
     score_dir = os.path.join(cfg.vM.root_dir, cfg.vM.score_dir)
-    score_file = {"Amp": None, "vM": None}
-    score = {"Amp": None, "vM": None}
+    score_file = {"Amp": None, "Rnd": None, "vM": None}
+    score = {"Amp": None, "Rnd": None, "vM": None}
     fig_dir = os.path.join(cfg.vM.root_dir, cfg.vM.fig_dir)
     os.makedirs(fig_dir, exist_ok=True)
     fig = plt.figure(figsize=(12, 4))
@@ -42,25 +42,36 @@ def main(cfg: DictConfig):
         gla_iter = cfg.feature.gla_iter
         if cfg.demo.gla is False:
             score_file["Amp"] = os.path.join(score_dir, f"{mode}_score_zero.txt")
+            score_file["Rnd"] = os.path.join(score_dir, f"{mode}_score_random.txt")
             score_file["vM"] = os.path.join(score_dir, f"{mode}_score_0.txt")
         else:
             score_file["Amp"] = os.path.join(
                 score_dir, f"{mode}_score_{gla_iter}_zero.txt"
             )
+            score_file["Rnd"] = os.path.join(
+                score_dir, f"{mode}_score_{gla_iter}_random.txt"
+            )
             score_file["vM"] = os.path.join(score_dir, f"{mode}_score_{gla_iter}.txt")
         with open(score_file["Amp"], mode="r", encoding="utf-8") as file_hander:
             score["Amp"] = np.array([float(line.strip()) for line in file_hander])
+        with open(score_file["Rnd"], mode="r", encoding="utf-8") as file_hander:
+            score["Rnd"] = np.array([float(line.strip()) for line in file_hander])
         with open(score_file["vM"], mode="r", encoding="utf-8") as file_hander:
             score["vM"] = np.array([float(line.strip()) for line in file_hander])
 
         axes = fig.add_subplot(1, 3, i + 1)
         axes.boxplot(
             np.concatenate(
-                (score["Amp"].reshape(-1, 1), score["vM"].reshape(-1, 1)), axis=1
+                (
+                    score["Amp"].reshape(-1, 1),
+                    score["Rnd"].reshape(-1, 1),
+                    score["vM"].reshape(-1, 1),
+                ),
+                axis=1,
             ),
             flierprops=dict(marker="+", markeredgecolor="r"),
-            labels=["Amp", "vM"],
-            widths=(0.5, 0.5),
+            labels=["Amp", "Rnd", "vM"],
+            widths=(0.5, 0.5, 0.5),
         )
         axes.xaxis.set_ticks_position("both")
         axes.yaxis.set_ticks_position("both")
