@@ -44,7 +44,9 @@ You need to prepare the following two datasets from [JSUT corpus](https://sites.
 
 6. Run `evaluate_scores_zerophase.py`. It also generates reconstructed audio data and computes objective scores (PESQ, STOI, LSC), where phase spectrum is assumed to be zero (zero-phase).
 
-7. Run `plot_boxplot.py`. It plots boxplot of objective scores.
+7. Run `evaluate_scores_randomphase.py`. It also generates reconstructed audio data and computes objective scores (PESQ, STOI, LSC), where phase spectrum is assumed to be sampled uniformly between $-\pi$ and $\pi$.
+
+8. Run `plot_boxplot.py`. It plots boxplot of objective scores.
 
 ## References
 
