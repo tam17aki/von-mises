@@ -1,6 +1,6 @@
 # Unofficial implementation of phase reconstruction method with von Mises distribution DNN
 
-This repository provides an unofficial implementation of phase reconstruction with von Mises distribution DNN [1].
+This repository provides an unofficial implementation of phase reconstruction with von Mises distribution DNN [1][2].
 
 ## Licence
 MIT licence.
@@ -49,3 +49,5 @@ You need to prepare the following two datasets from [JSUT corpus](https://sites.
 ## References
 
 [1] 高道 慎之介, 齋藤 佑樹, 高宗 典玄, 北村 大地, 猿渡 洋, "von Mises分布DNNに基づく振幅スペクトログラムからの位相復元," 情報処理学会研究報告, 2018-MUS-122, no.54, pp. 1--6, Jun., 2018.
+
+[2] Shinnosuke Takamichi, Yuki Saito, Norihiro Takamune, Daichi Kitamura, and Hiroshi Saruwatari, "Phase reconstruction from amplitude spectrograms based on von-Mises-distribution deep neural network," Proc. IWAENC, pp. 286--290, Tokyo, Japan, Sep. 2018.
