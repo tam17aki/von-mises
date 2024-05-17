@@ -210,10 +210,10 @@ def main(cfg: DictConfig):
             out_filename = os.path.join(score_dir, f"{score_type}_score_0.txt")
         else:
             out_filename = f"{score_type}_score_{cfg.feature.gla_iter}.txt"
-            out_filename = os.path.join(score_dir, out_filename)
-            with open(out_filename, mode="w", encoding="utf-8") as file_handler:
-                for score in score_list:
-                    file_handler.write(f"{score}\n")
+        out_filename = os.path.join(score_dir, out_filename)
+        with open(out_filename, mode="w", encoding="utf-8") as file_handler:
+            for score in score_list:
+                file_handler.write(f"{score}\n")
         score_array = np.array(score_list)
         print(
             f"{score_type}: "
