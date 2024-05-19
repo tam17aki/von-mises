@@ -17,6 +17,7 @@ We tested the implemention on Ubuntu 22.04. The verion of Python was `3.10.12`. 
 - progressbar2
 - pydub
 - pypesq
+- pyroomacoustics
 - pystoi
 - scikit-learn
 - soundfile
