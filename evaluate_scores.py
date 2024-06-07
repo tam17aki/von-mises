@@ -132,6 +132,7 @@ def compensate_phase(phase, win_len, n_frame):
     return phase
 
 
+@torch.no_grad()
 def reconst_waveform(cfg, model, logabs_path, scaler, device):
     """Reconstruct audio waveform only from the amplitude spectrum."""
     logabs_feats = np.load(logabs_path)
@@ -183,11 +184,11 @@ def compute_eval_score(cfg, model, logabs_list, device):
     return score_list
 
 
-@torch.no_grad()
 def main(cfg: DictConfig):
     """Perform model training."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = load_checkpoint(cfg, device)
+    model.eval()
     feat_dir = os.path.join(
         cfg.vM.root_dir, cfg.vM.feat_dir, cfg.vM.evalset_dir, cfg.feature.window
     )
@@ -207,9 +208,9 @@ def main(cfg: DictConfig):
     score_dict = compute_eval_score(cfg, model, logabs_list, device)
     for score_type, score_list in score_dict.items():
         if cfg.demo.gla is False:
-            out_filename = os.path.join(score_dir, f"{score_type}_score_0.txt")
+            out_filename = os.path.join(score_dir, f"{score_type}_score_0_vM.txt")
         else:
-            out_filename = f"{score_type}_score_{cfg.feature.gla_iter}.txt"
+            out_filename = f"{score_type}_score_{cfg.feature.gla_iter}_vM.txt"
         out_filename = os.path.join(score_dir, out_filename)
         with open(out_filename, mode="w", encoding="utf-8") as file_handler:
             for score in score_list:
