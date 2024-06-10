@@ -185,7 +185,7 @@ def compute_eval_score(cfg, model, logabs_list, device):
 
 
 def main(cfg: DictConfig):
-    """Perform model training."""
+    """Perform evaluation."""
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     model = load_checkpoint(cfg, device)
     model.eval()
